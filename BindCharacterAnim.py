@@ -23,13 +23,27 @@ skeletal_mesh_actors = [actor for actor in all_actors if isinstance(actor, unrea
 for skeletal_mesh_actor in skeletal_mesh_actors:
     actor_name = skeletal_mesh_actor.get_name()
 
-    # Generate the expected animation path based on actor name
-    anim_sequence_path = f"/Game/AXYZAssets/Animations/{actor_name}_AnimSequence.{actor_name}_AnimSequence"
-    anim_sequence = unreal.load_asset(anim_sequence_path)
+    # Get the SkeletalMeshComponent inside the actor
+    skeletal_mesh_component = skeletal_mesh_actor.get_component_by_class(unreal.SkeletalMeshComponent)
+
+    if not skeletal_mesh_component:
+        unreal.log_warning(f"❌ No SkeletalMeshComponent found for {actor_name}, skipping...")
+        continue
+
+    # Get the "Anim to Play" from SingleAnimationPlayData
+    animation_data = skeletal_mesh_component.get_editor_property("animation_data")
+    
+    if not animation_data:
+        unreal.log_warning(f"❌ No animation data found for {actor_name}, skipping...")
+        continue
+
+    anim_sequence = animation_data.get_editor_property("anim_to_play")
 
     if not anim_sequence:
-        unreal.log_warning(f"Animation not found for {actor_name}, skipping...")
+        unreal.log_warning(f"❌ No 'Anim to Play' found for {actor_name}, skipping...")
         continue
+
+    unreal.log(f"🎬 Found Anim to Play for {actor_name}: {anim_sequence.get_name()}")
 
     # Find or create a binding in the Level Sequence
     bindings = level_sequence.get_bindings()
@@ -44,7 +58,7 @@ for skeletal_mesh_actor in skeletal_mesh_actors:
         binding = level_sequence.add_possessable(skeletal_mesh_actor)
 
     if not binding:
-        unreal.log_error(f"Failed to add binding for {actor_name}")
+        unreal.log_error(f"❌ Failed to add binding for {actor_name}")
         continue
 
     # Get or create an animation track
@@ -52,7 +66,7 @@ for skeletal_mesh_actor in skeletal_mesh_actors:
     animation_section = animation_track.add_section()
 
     if not animation_section:
-        unreal.log_error(f"Failed to create animation section for {actor_name}")
+        unreal.log_error(f"❌ Failed to create animation section for {actor_name}")
         continue
 
     # Assign the animation and force 1800 frames duration
@@ -63,7 +77,7 @@ for skeletal_mesh_actor in skeletal_mesh_actors:
     animation_section.params.animation = anim_sequence
     animation_section.params.start_frame_offset = unreal.FrameNumber(0)
 
-    unreal.log(f"✅ Successfully added {anim_sequence.get_name()} to {actor_name} with duration 1800 frames.")
+    unreal.log(f"✅ Successfully assigned '{anim_sequence.get_name()}' to {actor_name} with duration 1800 frames.")
 
 # ✅ Set playback range of the whole Level Sequence to 1800 frames
 start_frame = 0

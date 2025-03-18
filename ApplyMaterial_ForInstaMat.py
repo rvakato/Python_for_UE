@@ -1,10 +1,10 @@
 import unreal
 
 # Define paths based on the new folder structure
-source_instance_path = Source_Instance_Path  # Path to the source material instance
-output_instance_folder = output_instance_path  # Folder to save the duplicated instances
-texture_folder = texture_path  # Folder containing the textures
-texture_name_prefix = texture_name_prefix  # Prefix for textures
+source_instance_path = '/Game/Stage/Materials/Bricks/InstaMatBrickTest/Bricks_Instamat.Bricks_Instamat'  # Path to the source material instance
+output_instance_folder = '/Game/Stage/Materials/Bricks/InstaMatBrickTest/'  # Folder to save the duplicated instances
+texture_folder = '/Game/Stage/Materials/Bricks/InstaMatBrickTest/'  # Folder containing the textures
+texture_name_prefix = 'Brick'  # Prefix for textures
 
 # Updated parameter names for Virtual Textures
 parameters = {
@@ -20,7 +20,7 @@ if not source_instance:
     quit()
 
 # Duplicate the material instance and apply textures
-for i in range(1, 31):  # Loop through 1 to 30
+for i in range(1, 33):  # Loop through 1 to 32
     # Define the new instance name and path
     new_instance_name = f"MI_{texture_name_prefix}{i}"
     new_instance_path = f"{output_instance_folder}{new_instance_name}"

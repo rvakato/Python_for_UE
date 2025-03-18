@@ -2,8 +2,8 @@ import unreal
 
 # Define paths
 master_material_path = "/Game/Texture/M_BrickMaster"  # Path to the master material
-output_instance_folder = "/Game/Texture/"  # Folder to save material instances
-texture_folder = "/Game/Texture/"  # Folder containing textures
+output_instance_folder = "/Game/Stage/Materials/Brick/Brick_Test/"  # Folder to save material instances
+texture_folder = "/Game/Stage/Materials/Brick/Brick_Test/"  # Folder containing textures
 
 # Load the master material
 master_material = unreal.EditorAssetLibrary.load_asset(master_material_path)
@@ -16,7 +16,7 @@ instance_names = [f"MI_Brick_Thorn_Black_{i}" for i in range(1, 21)]
 
 # Define dummy texture names (modify to match actual textures in your project)
 texture_sets = {
-    f"Brick_Ibstock_Thorn_Black_{i}": {
+    f"MI_Brick_Test_{i}": {
         "BaseColor": f"{texture_folder}Brick_Ibstock_Thorn_Black_{i}_color",
         "Normal": f"{texture_folder}Brick_Ibstock_Thorn_Black_{i}_normal",
         "Roughness": f"{texture_folder}Brick_Ibstock_Thorn_Black_{i}_roughness",
