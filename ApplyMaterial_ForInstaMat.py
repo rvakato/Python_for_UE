@@ -1,10 +1,11 @@
 import unreal
 
 # Define paths based on the new folder structure
-source_instance_path = '/Game/Stage/Materials/Bricks/InstaMatBrickTest/Bricks_Instamat.Bricks_Instamat'  # Path to the source material instance
-output_instance_folder = '/Game/Stage/Materials/Bricks/InstaMatBrickTest/'  # Folder to save the duplicated instances
-texture_folder = '/Game/Stage/Materials/Bricks/InstaMatBrickTest/'  # Folder containing the textures
-texture_name_prefix = 'Brick'  # Prefix for textures
+texture_name_prefix = 'Bricks_TaylorMaxwell_AllWhiteMirato'  # Prefix for textures
+source_instance_path = f'/Game/Stage/Materials/Bricks/{texture_name_prefix}/Bricks_Base.Bricks_Base'  # Path to the source material instance
+output_instance_folder = f'/Game/Stage/Materials/Bricks/{texture_name_prefix}/'  # Folder to save the duplicated instances
+texture_folder = f'/Game/Stage/Materials/Bricks/{texture_name_prefix}/'  # Folder containing the textures
+
 
 # Updated parameter names for Virtual Textures
 parameters = {
@@ -20,7 +21,7 @@ if not source_instance:
     quit()
 
 # Duplicate the material instance and apply textures
-for i in range(1, 33):  # Loop through 1 to 32
+for i in range(1, 31):  # Loop through 1 to 32
     # Define the new instance name and path
     new_instance_name = f"MI_{texture_name_prefix}{i}"
     new_instance_path = f"{output_instance_folder}{new_instance_name}"
@@ -40,9 +41,9 @@ for i in range(1, 33):  # Loop through 1 to 32
         continue
 
     # Apply textures to the duplicated material instance
-    base_color_texture_path = f"{texture_folder}{texture_name_prefix}_{i}BaseColor"
-    normal_texture_path = f"{texture_folder}{texture_name_prefix}_{i}Normal"
-    roughness_texture_path = f"{texture_folder}{texture_name_prefix}_{i}Roughness"
+    base_color_texture_path = f"{texture_folder}{texture_name_prefix}_BaseColor{i}"
+    normal_texture_path = f"{texture_folder}{texture_name_prefix}_Normal{i}"
+    roughness_texture_path = f"{texture_folder}{texture_name_prefix}_Roughness{i}"
 
     # Load the virtual textures
     base_color_texture = unreal.EditorAssetLibrary.load_asset(base_color_texture_path)

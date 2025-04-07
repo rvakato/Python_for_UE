@@ -1,10 +1,10 @@
 import unreal
 
 # Define paths based on the new folder structure
-source_instance_path = Source_Instance_Path  # Path to the source material instance
-output_instance_folder = output_instance_path  # Folder to save the duplicated instances
-texture_folder = texture_path  # Folder containing the textures
-texture_name_prefix = texture_name_prefix  # Prefix for textures
+source_instance_path = '/Game/Stage/Materials/Bricks/Bricks_TaylorMaxwell_AllWhiteMirato/Bricks_Base.Bricks_Base'  # Path to the source material instance
+output_instance_folder = '/Game/Stage/Materials/Bricks/Bricks_TaylorMaxwell_AllWhiteMirato/'  # Folder to save the duplicated instances
+texture_folder = '/Game/Stage/Materials/Bricks/Bricks_TaylorMaxwell_AllWhiteMirato/'  # Folder containing the textures
+texture_name_prefix = 'Bricks_TaylorMaxwell_AllWhiteMirato'  # Prefix for textures
 
 # Updated parameter names for Virtual Textures
 parameters = {
@@ -40,9 +40,9 @@ for i in range(1, 31):  # Loop through 1 to 30
         continue
 
     # Apply textures to the duplicated material instance
-    base_color_texture_path = f"{texture_folder}{texture_name_prefix}_{i}BaseColor"
-    normal_texture_path = f"{texture_folder}{texture_name_prefix}_{i}Normal"
-    roughness_texture_path = f"{texture_folder}{texture_name_prefix}_{i}Roughness"
+    base_color_texture_path = f"{texture_folder}{texture_name_prefix}_{i}_color"
+    normal_texture_path = f"{texture_folder}{texture_name_prefix}_{i}_normal"
+    roughness_texture_path = f"{texture_folder}{texture_name_prefix}_{i}_roughness"
 
     # Load the virtual textures
     base_color_texture = unreal.EditorAssetLibrary.load_asset(base_color_texture_path)
